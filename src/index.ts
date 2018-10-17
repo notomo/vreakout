@@ -1,5 +1,6 @@
-import { Engine, DisplayMode, Color, Input } from "excalibur";
+import { Engine, DisplayMode, Color } from "excalibur";
 import { Paddle } from "./objects/paddle";
+import { VreakoutKeyDispatcher } from "./key";
 
 class Game extends Engine {
   constructor() {
@@ -17,17 +18,13 @@ const game = new Game();
 const paddle = new Paddle(game.drawWidth / 2, game.drawHeight - 40);
 game.add(paddle);
 
+const dispatcher = new VreakoutKeyDispatcher(game, paddle);
 game.input.keyboard.on("hold", ev => {
   if (ev === undefined) {
     return;
   }
 
-  const key = ev.key;
-  if (key === Input.Keys.H) {
-    paddle.moveLeft();
-  } else if (key === Input.Keys.L) {
-    paddle.moveRight();
-  }
+  dispatcher.dispatch(ev.key);
 });
 
 game.start();
