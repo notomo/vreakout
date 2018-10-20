@@ -21,19 +21,19 @@ game.add(paddle);
 
 const ball = new Ball(game.drawWidth / 2, game.drawHeight / 2, 800, 800);
 ball.on("postupdate", () => {
-  if (ball.pos.x < ball.getWidth() / 2) {
+  if (ball.getLeft() <= 0 && ball.vel.x < 0) {
     ball.vel.x *= -1;
   }
 
-  if (ball.pos.x + ball.getWidth() / 2 > game.drawWidth) {
+  if (ball.getRight() > game.drawWidth && ball.vel.x > 0) {
     ball.vel.x *= -1;
   }
 
-  if (ball.pos.y < ball.getHeight() / 2) {
+  if (ball.getTop() <= 0 && ball.vel.y < 0) {
     ball.vel.y *= -1;
   }
 
-  if (ball.pos.y + ball.getHeight() / 2 > game.drawHeight) {
+  if (ball.getBottom() >= game.drawHeight && ball.vel.y > 0) {
     ball.vel.y *= -1;
   }
 });
