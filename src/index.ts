@@ -11,7 +11,7 @@ class Game extends Engine {
       width: 800,
       height: 600,
       displayMode: DisplayMode.FullScreen,
-      backgroundColor: Color.Black
+      backgroundColor: Color.Black,
     });
   }
 }
@@ -54,7 +54,7 @@ new Arranger()
   .setPosition((index: number, info: ArrangeInfo) => {
     return [
       initX + (index % rowLength) * (width + gapX),
-      initY + Math.floor(index / rowLength) * (height + gapY)
+      initY + Math.floor(index / rowLength) * (height + gapY),
     ];
   })
   .setColor((index: number, info: ArrangeInfo) => {
