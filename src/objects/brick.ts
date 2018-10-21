@@ -14,7 +14,15 @@ export class Brick extends Actor {
       width: width,
       height: height,
       color: color,
-      collisionType: CollisionType.Fixed
+      collisionType: CollisionType.Fixed,
+    });
+
+    this.on("precollision", ev => {
+      if (ev === undefined) {
+        return;
+      }
+
+      this.kill();
     });
   }
 }
