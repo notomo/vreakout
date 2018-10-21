@@ -1,7 +1,9 @@
 import { Engine, DisplayMode, Color } from "excalibur";
 import { Paddle } from "./objects/paddle";
 import { Ball } from "./objects/ball";
+import { Brick } from "./objects/brick";
 import { VreakoutKeyDispatcher } from "./key";
+import { Arranger, ArrangeInfo } from "./arranger";
 
 class Game extends Engine {
   constructor() {
@@ -38,6 +40,32 @@ ball.on("postupdate", () => {
   }
 });
 game.add(ball);
+
+const colors = [Color.Red, Color.Chartreuse, Color.Yellow];
+const rowLength = 18;
+const rowCount = 4;
+const width = 120;
+const gapX = 60;
+const height = 40;
+const gapY = 40;
+const initX = 50;
+const initY = 100;
+new Arranger()
+  .setPosition((index: number, info: ArrangeInfo) => {
+    return [
+      initX + (index % rowLength) * (width + gapX),
+      initY + Math.floor(index / rowLength) * (height + gapY)
+    ];
+  })
+  .setColor((index: number, info: ArrangeInfo) => {
+    return colors[index % colors.length];
+  })
+  .do(initX, initY, rowLength * rowCount)
+  .map(info => {
+    const color = info.color || Color.Chartreuse;
+    const brick = new Brick(info.x, info.y, width, height, color);
+    game.add(brick);
+  });
 
 const dispatcher = new VreakoutKeyDispatcher(game, paddle);
 game.input.keyboard.on("hold", ev => {
