@@ -1,7 +1,7 @@
 import { Actor, Color, CollisionType } from "excalibur";
 
 export class Paddle extends Actor {
-  protected readonly unitX = 10;
+  protected readonly unit = 10;
 
   constructor(x: number, y: number) {
     super({
@@ -10,15 +10,23 @@ export class Paddle extends Actor {
       width: 200,
       height: 20,
       color: Color.Chartreuse,
-      collisionType: CollisionType.Fixed
+      collisionType: CollisionType.Fixed,
     });
   }
 
   public moveRight() {
-    this.x += this.unitX;
+    this.x += this.unit;
   }
 
   public moveLeft() {
-    this.x -= this.unitX;
+    this.x -= this.unit;
+  }
+
+  public moveDown() {
+    this.y += this.unit;
+  }
+
+  public moveUp() {
+    this.y -= this.unit;
   }
 }

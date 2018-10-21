@@ -31,7 +31,19 @@ export class VreakoutKeyDispatcher extends KeyDispatcher {
           return;
         }
         paddle.moveRight();
-      }
+      },
+      [Input.Keys.J]: (key: Input.Keys) => {
+        if (paddle.getBottom() >= engine.canvasHeight) {
+          return;
+        }
+        paddle.moveDown();
+      },
+      [Input.Keys.K]: (key: Input.Keys) => {
+        if (paddle.getTop() <= 0) {
+          return;
+        }
+        paddle.moveUp();
+      },
     });
   }
 }
